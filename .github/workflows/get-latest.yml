@@ -19,7 +19,9 @@ jobs:
               mkdir -p node_modules
 
       - name: Checkout code.
-        run: git clone https://github.com/woocommerce/woocommerce.git
+        run: |
+          git clone https://github.com/woocommerce/woocommerce.git
+          mv ./woocommerce/* ./package/woocommerce
 
       - name: Run npm install.
         working-directory: package/woocommerce
