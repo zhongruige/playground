@@ -21,6 +21,7 @@ jobs:
       - name: Checkout code.
         uses: actions/checkout@v2
         with:
+          repository: https://github.com/woocommerce/woocommerce # Remove this later
           path: package/woocommerce
 
       - name: Run npm install.
@@ -29,6 +30,8 @@ jobs:
 
       - name: Load docker images and start containers.
         working-directory: package/woocommerce
+        env:
+          LATEST_WP_VERSION_MINUS: ${{ matrix.wp }}
         run: npx wc-e2e docker:up
 
       - name: Move current directory to code. We will install zip file in this dir later.
@@ -43,6 +46,4 @@ jobs:
 
       - name: Run tests command.
         working-directory: code/woocommerce
-        env:
-          LATEST_WP_VERSION_MINUS: ${{ matrix.wp }}
         run: npx wc-e2e test:e2e
