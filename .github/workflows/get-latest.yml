@@ -19,10 +19,7 @@ jobs:
               mkdir -p node_modules
 
       - name: Checkout code.
-        uses: actions/checkout@v2
-        with:
-          repository: woocommerce/woocommerce # Remove this later
-          path: package/woocommerce
+        run: git clone https://github.com/woocommerce/woocommerce.git
 
       - name: Run npm install.
         working-directory: package/woocommerce
