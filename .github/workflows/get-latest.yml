@@ -21,7 +21,7 @@ jobs:
       - name: Checkout code.
         uses: actions/checkout@v2
         with:
-          repository: https://github.com/woocommerce/woocommerce # Remove this later
+          repository: woocommerce/woocommerce # Remove this later
           path: package/woocommerce
 
       - name: Run npm install.
