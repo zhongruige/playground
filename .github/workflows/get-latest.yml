@@ -21,7 +21,7 @@ jobs:
       # - name: Checkout code.
       #   uses: actions/checkout@v2
       #   with:
-      #     repository: woocommerce/woocommerce # Remove this line later
+      #     repository: woocommerce/woocommerce # Remove this line later; this can use the current workflow. Just need to copy and unzip the release asset.
       #     path: package/woocommerce
       - name: Checkout code.
         run: |
@@ -40,15 +40,12 @@ jobs:
 
       - name: Move current directory to code. We will install zip file in this dir later.
         run: mv ./package/woocommerce/* ./code/woocommerce
-#           curl -L ${{ github.event.release.zipball_url }} > woocommerce.zip
-# this actually won't work because this doesn't include the tests
-# flow can checkout the code, install the tarball then it may work.
+#           curl -L ${{ github.event.release }} > woocommerce.zip
       - name: Download WooCommerce release zip
         working-directory: tmp
         run: |
-          curl -L https://api.github.com/repos/woocommerce/woocommerce/zipball/5.8.0-rc.1 > woocommerce.zip
-          unzip woocommerce.zip -d woocommerce
-          mv woocommerce/woocommerce/* ../package/woocommerce/
+          echo ${{ github.event.release }}
+          echo $GITHUB_EVENT_PATH
 
       - name: Run tests command.
         working-directory: code/woocommerce
