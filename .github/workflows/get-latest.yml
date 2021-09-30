@@ -18,11 +18,15 @@ jobs:
               mkdir -p tmp/woocommerce
               mkdir -p node_modules
 
+      # - name: Checkout code.
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: woocommerce/woocommerce # Remove this line later
+      #     path: package/woocommerce
       - name: Checkout code.
-        uses: actions/checkout@v2
-        with:
-          repository: https://github.com/woocommerce/woocommerce # Remove this line later
-          path: package/woocommerce
+        run: |
+          git clone https://github.com/woocommerce/woocommerce.git
+          mv ./woocommerce/* ./package/woocommerce
 
       - name: Run npm install.
         working-directory: package/woocommerce
@@ -36,7 +40,9 @@ jobs:
 
       - name: Move current directory to code. We will install zip file in this dir later.
         run: mv ./package/woocommerce/* ./code/woocommerce
-
+#           curl -L ${{ github.event.release.zipball_url }} > woocommerce.zip
+# this actually won't work because this doesn't include the tests
+# flow can checkout the code, install the tarball then it may work.
       - name: Download WooCommerce release zip
         working-directory: tmp
         run: |
