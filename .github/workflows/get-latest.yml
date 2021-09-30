@@ -44,10 +44,11 @@ jobs:
       - name: Download WooCommerce release zip
         working-directory: tmp
         run: |
-          echo ${{ github.event.release }}
+          echo ${{ github.event.release.assets[0].id }}
           echo $GITHUB_EVENT_PATH
 
-          ASSET_ID=$(curl $GITHUB_EVENT_PATH | jq .assets[0].id); \
+          ASSET_ID=$(jq ".release.assets[0].id" $GITHUB_EVENT_PATH)
+
           curl https://api.github.com/repos/woocommerce/woocommerce/releases/assets/${ASSET_ID} -LJOH 'Accept: application/octet-stream'
 
           unzip woocommerce.zip -d woocommerce
