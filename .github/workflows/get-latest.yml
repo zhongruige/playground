@@ -40,18 +40,14 @@ jobs:
 
       - name: Move current directory to code. We will install zip file in this dir later.
         run: mv ./package/woocommerce/* ./code/woocommerce
-#           curl -L ${{ github.event.release }} > woocommerce.zip
+
       - name: Download WooCommerce release zip
         working-directory: tmp
         run: |
-          echo ${{ github.event.release.assets[0].id }}
-          echo $GITHUB_EVENT_PATH
+          ASSET_ID = ${{ github.event.release.assets[0].id }}
+          # ASSET_ID=$(jq ".release.assets[0].id" $GITHUB_EVENT_PATH)
 
-          ASSET_ID=$(jq ".release.assets[0].id" $GITHUB_EVENT_PATH)
-
-          #curl https://api.github.com/repos/woocommerce/woocommerce/releases/assets/${ASSET_ID} -LJOH 'Accept: application/octet-stream'
-
-          curl https://api.github.com/repos/zhongruige/playground/releases/assets/${ASSET_ID} -LJOH 'Accept: application/octet-stream'
+          curl https://api.github.com/repos/woocommerce/woocommerce/releases/assets/${ASSET_ID} -LJOH 'Accept: application/octet-stream'
 
           unzip woocommerce.zip -d woocommerce
           mv woocommerce/* ../package/woocommerce/
