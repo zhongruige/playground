@@ -36,6 +36,7 @@ jobs:
           unzip woocommerce.zip -d woocommerce
           mv woocommerce/* ../package/woocommerce/
   test-wp:
+    needs: testbed-setup
     name: Run smoke test on L-minus ${{ matrix.wp }} WordPress version
     runs-on: ubuntu-18.04
     strategy:
