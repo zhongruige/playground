@@ -35,6 +35,14 @@ jobs:
 
           unzip woocommerce.zip -d woocommerce
           mv woocommerce/* ../package/woocommerce/
+
+      - name: Temporarily save environment
+        uses: actions/upload-artifact@v2
+        with:
+          name: wc-artifact
+          path: package/
+          retention-days: 1
+
   test-wp:
     needs: testbed-setup
     name: Run smoke test on L-minus ${{ matrix.wp }} WordPress version
@@ -43,6 +51,12 @@ jobs:
       matrix: 
         wp: [ '1', '2' ]
     steps:
+
+      - name: Retrieve saved envrionment
+        uses: actions/download-artifact@v2
+        with:
+          name: wc-artifact
+          path: package/
 
       - name: Load docker images and start containers.
         working-directory: package/woocommerce
