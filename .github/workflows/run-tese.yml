@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix: 
-        plugins: [ 'automattic/woocommerce-payments', 'woocommerce/facebook-for-woocommerce', 'automattic/woocommerce-services', ${{ secrets.MY_TEST_SECRET }}]
+        plugins: [ 'automattic/woocommerce-payments', 'woocommerce/facebook-for-woocommerce', 'automattic/woocommerce-services', 'MY_TEST_SECRET']
         pluginNames: [ 'WooCommerce Payments', 'Facebook for WooCommerce', 'WooCommerce Shipping & Tax', 'WooCommerce Subscriptions' ]
     steps:
 
       - name: Create ${{ matrix.plugins }} and ${{ matrix.pluginNames }}.
-        run: echo 'hi'
+        run: echo ${{ secrets[matrix.MY_TEST_SECRET] }}
