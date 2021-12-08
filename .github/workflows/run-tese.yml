@@ -1,0 +1,14 @@
+name: Run smoke tests against plugins
+on: pull_request
+jobs:
+  test-plugins:
+    name: Smoke tests with ${{ matrix.plugins }} plugin installed
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix: 
+        plugins: [ 'automattic/woocommerce-payments', 'woocommerce/facebook-for-woocommerce', 'automattic/woocommerce-services', ${{ secrets.MY_TEST_SECRET }}]
+        pluginNames: [ 'WooCommerce Payments', 'Facebook for WooCommerce', 'WooCommerce Shipping & Tax', 'WooCommerce Subscriptions' ]
+    steps:
+
+      - name: Create ${{ matrix.plugins }} and ${{ matrix.pluginNames }}.
+        run: echo 'hi'
