@@ -21,7 +21,6 @@ jobs:
         if: ${{ success() && matrix.private }}
         run: echo ''
       - name: Create ${{ matrix.plugin }} and ${{ matrix.repo }}
-        run: echo ${{ secrets[matrix.MY_TEST_SECRET] }}
         env: 
           SOMETHING: ${{ matrix.private && secrets[matrix.repo] || matrix.repo }}
         run: echo $SOMETHING
