@@ -20,5 +20,5 @@ jobs:
         # pluginNames: [ 'WooCommerce Payments', 'Facebook for WooCommerce', 'WooCommerce Shipping & Tax', 'WooCommerce Subscriptions' ]
     steps:
 
-      - name: Create ${{ matrix.plugins }} and ${{ matrix.repo }} and ${{ matrix.plugin name }}.
+      - name: Create ${{ matrix.plugin }} and ${{ matrix.repo }} and ${{ matrix.private }}.
         run: echo ${{ secrets[matrix.MY_TEST_SECRET] }}
