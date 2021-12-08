@@ -19,7 +19,7 @@ jobs:
         # plugins: [ 'automattic/woocommerce-payments', 'woocommerce/facebook-for-woocommerce', 'automattic/woocommerce-services', 'MY_TEST_SECRET']
         # pluginNames: [ 'WooCommerce Payments', 'Facebook for WooCommerce', 'WooCommerce Shipping & Tax', 'WooCommerce Subscriptions' ]
     steps:
-      - namae: test a private
+      - name: test a private
         if: ${{ success() && matrix.private }}
         run: echo 'hi'
       - name: Create ${{ matrix.plugin }} and ${{ matrix.repo }}
