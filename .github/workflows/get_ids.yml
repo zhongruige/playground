@@ -19,3 +19,14 @@ jobs:
         run: |
           echo "Workflow ID: ${{ steps.get_workflow_id.outputs.workflow_id }}"
           echo "Job ID: ${{ steps.get_job_id.outputs }}"
+      - name: Get Job ID from GH API
+        id: get-job-id
+        env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            jobs=$(gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id}}/attempts/${{ github.run_attempt }}/jobs)
+            job_id=$(echo $jobs | jq -r '.jobs[] | select(.runner_name=="${{ runner.name }}") | .id')
+            echo "job_id=$job_id" >> $GITHUB_OUTPUT  
+      - name: Display Job ID
+        run: |
+         echo Job ID: ${{ steps.get-job-id.outputs.job_id }}
