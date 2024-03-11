@@ -20,5 +20,5 @@ jobs:
           echo "Job ID: ${{ steps.get_ids.outputs.job_id }}"
         env:
           WORKFLOW_ID: ${{ steps.get_ids.outputs.workflow_id }}
-          JOB_ID: ${{ steps.get_ids.outputs.job_id }}
+          JOB_ID: ${{ steps.get_ids.outputs.job.id }}
         shell: bash
