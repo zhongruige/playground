@@ -6,19 +6,16 @@ on:
       - main
 
 jobs:
-  print_ids:
+  get-id:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Workflow and Job IDs
-        id: get_ids
-        run: |
-          echo "Workflow ID: $GITHUB_RUN_ID"
-          echo "Job ID: $GITHUB_JOB"
-      - name: Print IDs
-        run: |
-          echo "Workflow ID: ${{ steps.get_ids.outputs.workflow_id }}"
-          echo "Job ID: ${{ steps.get_ids.outputs.job_id }}"
-        env:
-          WORKFLOW_ID: ${{ steps.get_ids.outputs.workflow_id }}
-          JOB_ID: ${{ steps.get_ids.outputs.job.id }}
-        shell: bash
+    - name: Get workflow name
+      run: echo "## Workflow name ${{ github.workflow }}"
+    - name: Get job name
+      run: echo "## Job name ${{ github.job }}"
+    - name: Use API to get job ID
+      uses: octokit/rest@v18
+    - name: Parse job ID from API response
+      run: |
+        job_id=$(jq '.jobs[] | select(.name == "get-id") | .id' <<< $GITHUB_OUTPUT)
+        echo "## Job ID: $job_id"
