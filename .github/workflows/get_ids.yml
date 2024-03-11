@@ -1,0 +1,24 @@
+name: Get Workflow and Job IDs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  print_ids:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Workflow and Job IDs
+        id: get_ids
+        run: |
+          echo "Workflow ID: $GITHUB_RUN_ID"
+          echo "Job ID: $GITHUB_JOB"
+      - name: Print IDs
+        run: |
+          echo "Workflow ID: ${{ steps.get_ids.outputs.workflow_id }}"
+          echo "Job ID: ${{ steps.get_ids.outputs.job_id }}"
+        env:
+          WORKFLOW_ID: ${{ steps.get_ids.outputs.workflow_id }}
+          JOB_ID: ${{ steps.get_ids.outputs.job_id }}
+        shell: bash
