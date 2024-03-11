@@ -18,4 +18,4 @@ jobs:
       - name: Print IDs
         run: |
           echo "Workflow ID: ${{ steps.get_workflow_id.outputs.workflow_id }}"
-          echo "Job ID: ${{ steps.get_job_id }}"
+          echo "Job ID: ${{ steps.get_job_id.outputs }}"
