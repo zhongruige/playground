@@ -14,7 +14,7 @@ jobs:
         run: echo "Workflow ID $GITHUB_RUN_ID"
       - name: Get Job ID
         id: get_job_id
-        run: echo "Job ID ${{ github.job.job_id }}"
+        run: echo "Job ID ${{ github.job.get_job_id }}"
       - name: Print IDs
         run: |
           echo "Workflow ID: ${{ steps.get_workflow_id.outputs.workflow_id }}"
