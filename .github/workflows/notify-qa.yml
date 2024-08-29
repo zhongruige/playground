@@ -10,17 +10,7 @@ jobs:
     if: >
       (github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'Automation'))
     steps:
-      - name: Check for Automation Label
-        id: label_check
-        run: |
-          labels=$(echo "${{ github.event.pull_request.labels }}" | grep -o 'Automation' || echo "")
-          if [ -z "$labels" ]; then
-            echo "has_label=false" >> $GITHUB_OUTPUT
-          else
-            echo "has_label=true" >> $GITHUB_OUTPUT
-          fi
       - name: Dummy Action Instead of Slack Notification
-        if: steps.label_check.outputs.has_label == 'true'
         run: |
           echo "This is a test. The PR has the Automation label."
           echo "Title: ${{ github.event.pull_request.title }}"
