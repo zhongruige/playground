@@ -15,9 +15,9 @@ jobs:
         run: |
           labels=$(echo "${{ github.event.pull_request.labels }}" | grep -o 'Automation' || echo "")
           if [ -z "$labels" ]; then
-            run: echo "has_label=false" >> $GITHUB_OUTPUT
+            echo "has_label=false" >> $GITHUB_OUTPUT
           else
-            run: echo "has_label=true" >> $GITHUB_OUTPUT
+            echo "has_label=true" >> $GITHUB_OUTPUT
           fi
       - name: Dummy Action Instead of Slack Notification
         if: steps.label_check.outputs.has_label == 'true'
