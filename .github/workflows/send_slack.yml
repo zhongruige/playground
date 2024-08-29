@@ -1,0 +1,49 @@
+name: Notify Slack on PR with Automation Label
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  notify_slack:
+    runs-on: ubuntu-latest
+    if: >
+      (github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'Automation'))
+      - name: Send Slack Notification
+        if: steps.label_check.outputs.has_label == 'true'
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "channel": "#specific-channel",  // <-- Replace with your Slack channel
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*New Pull Request with Automation Label*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Title:*\n<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Opened By:*\n<${{ github.event.pull_request.user.html_url }}|${{ github.event.pull_request.user.login }}>"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Description:*\n${{ github.event.pull_request.body }}"
+                  }
+                }
+              ]
+            }
