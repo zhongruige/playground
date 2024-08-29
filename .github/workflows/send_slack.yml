@@ -15,35 +15,13 @@ jobs:
         with:
           payload: |
             {
-                "text": "New Pull Request ready for QA review!",
+                "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
                 "blocks": [
                 {
                     "type": "section",
                     "text": {
                     "type": "mrkdwn",
-                    "text": "*New Pull Request with Automation Label*"
-                    }
-                },
-                {
-                    "type": "section",
-                    "block_id": "section567",
-                    "fields": [
-                    {
-                        "type": "mrkdwn",
-                        "text": "*Title:*\n<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "*Opened By:*\n<${{ github.event.pull_request.user.html_url }}|${{ github.event.pull_request.user.login }}>"
-                    }
-                    ]
-                },
-                {
-                    "type": "section",
-                    "block_id": "section789",
-                    "text": {
-                    "type": "mrkdwn",
-                    "text": "*Description:*\n${{ github.event.pull_request.body }}"
+                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                     }
                 }
                 ]
