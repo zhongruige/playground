@@ -15,7 +15,6 @@ jobs:
         with:
           payload: |
             {
-              "channel": "#qa-engineering-code-reviews",
               "blocks": [
                 {
                   "type": "section",
