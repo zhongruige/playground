@@ -15,7 +15,7 @@ jobs:
         with:
           payload: |
             {
-              "channel": "#specific-channel",  // <-- Replace with your Slack channel
+              "channel": "#qa-engineering-code-reviews",
               "blocks": [
                 {
                   "type": "section",
