@@ -2,13 +2,12 @@ name: Notify Slack on PR with Automation Label
 
 on:
   pull_request:
-    types: [opened, labeled]
+    types: [labeled]
 
 jobs:
   notify_slack:
     runs-on: ubuntu-latest
     if: >
-      github.event.action == 'opened' &&
       (github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'Automation'))
     steps:
       - name: Check for Automation Label
@@ -20,3 +19,10 @@ jobs:
           else
             echo "::set-output name=has_label::true"
           fi
+      - name: Dummy Action Instead of Slack Notification
+        if: steps.label_check.outputs.has_label == 'true'
+        run: |
+          echo "This is a test. The PR has the Automation label."
+          echo "Title: ${{ github.event.pull_request.title }}"
+          echo "Opened By: ${{ github.event.pull_request.user.login }}"
+          echo "Description: ${{ github.event.pull_request.body }}"
