@@ -15,7 +15,7 @@ jobs:
         with:
           payload: |
             {
-                "text": "${{ github.event.pull_request.title }} opened by ${{ github.event.pull_request.user.login }} is ready for review!\n*Description:*${{ github.event.pull_request.body }}"
+                "text": "${{ github.event.pull_request.title }} opened by ${{ github.event.pull_request.user.login }} is ready for review!\n*Description:* ${{ github.event.pull_request.body }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
