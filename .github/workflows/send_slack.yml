@@ -10,10 +10,8 @@ jobs:
     if: >
       (github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'Automation'))
       - name: Send Slack Notification
-        if: steps.label_check.outputs.has_label == 'true'
-        uses: slackapi/slack-github-action@v1.23.0
+        uses: slackapi/slack-github-action@v1.27.0
         with:
-          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
               "channel": "#specific-channel",  // <-- Replace with your Slack channel
@@ -47,3 +45,5 @@ jobs:
                 }
               ]
             }
+        env:
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
