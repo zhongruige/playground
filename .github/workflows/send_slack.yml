@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     if: >
       (github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'Automation'))
+    steps:
       - name: Send Slack Notification
         uses: slackapi/slack-github-action@v1.27.0
         with:
