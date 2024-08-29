@@ -15,6 +15,7 @@ jobs:
         with:
           payload: |
             {
+              "text": "New Pull Request ready for QA review!",
               "blocks": [
                 {
                   "type": "section",
