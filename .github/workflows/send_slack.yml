@@ -15,36 +15,16 @@ jobs:
         with:
           payload: |
             {
-              "text": "New Pull Request ready for QA review!",
-              "blocks": [
+                "text": "${{ github.event.pull_request.title }} opened by ${{ github.event.pull_request.user.login }} is ready for review! ${{ job.status }}\n$Description:*\n${{ github.event.pull_request.body }}",
+                "blocks": [
                 {
-                  "type": "section",
-                  "text": {
+                    "type": "section",
+                    "text": {
                     "type": "mrkdwn",
-                    "text": "*New Pull Request ready for QA review!*"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Title:*\n<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Opened By:*\n<${{ github.event.pull_request.user.html_url }}|${{ github.event.pull_request.user.login }}>"
+                    "text": "{{ github.event.pull_request.title }} opened by ${{ github.event.pull_request.user.login }} is ready for review! ${{ job.status }}\n$Description:*\n${{ github.event.pull_request.body }}"
                     }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Description:*\n${{ github.event.pull_request.body }}"
-                  }
                 }
-              ]
+                ]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
