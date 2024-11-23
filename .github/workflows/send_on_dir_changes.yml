@@ -1,0 +1,23 @@
+name: Notify on PR Creation with Test Directory Changes
+
+on:
+  pull_request:
+    types:
+      - opened
+    paths:
+      - 'test/**' # Trigger only if files in the 'test' directory are affected
+
+jobs:
+  notify_slack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Slack Notification
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {
+                "text": "*${{ github.event.pull_request.title }}* opened by *${{ github.event.pull_request.user.login }}* is ready for review! \n${{ github.event.pull_request.html_url }} \n*Description:* ${{ github.event.pull_request.body }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
